@@ -1,0 +1,77 @@
+// { Driver Code Starts
+#include <bits/stdc++.h>
+using namespace std;
+
+
+ // } Driver Code Ends
+class Solution
+{
+    public:
+    //Function to find a continuous sub-array which adds up to a given number.
+    vector<int> subarraySum(int arr[], int n, long long s)
+    {
+      
+      //logic behind this question is that all the element are positive it means if current sum is greater than target then we dont have to move right side shift from left side toward right side and decrement the current sum just same approach of sliding windows
+      //time complexcity is nearly bego(n)
+      //space complexcity is o(1)
+vector<int>ans;
+int i=0;
+int j=0;
+int k=s;
+int curr_sum=arr[0];
+while(j<n)
+{
+    if(curr_sum<s)
+    {
+     curr_sum+=arr[++j];
+     
+    
+     
+    }
+    else if(curr_sum>k&&i<=j)
+    {
+     curr_sum-=arr[i];
+     i++;
+    }
+    else
+    {
+        ans.push_back(i+1);
+        ans.push_back(j+1);
+        break;
+    }
+   
+}
+if(ans.size()==0)
+ans.push_back(-1);
+return ans;
+    }
+};
+
+// { Driver Code Starts.
+
+int main()
+ {
+    int t;
+    cin>>t;
+    while(t--)
+    {
+        int n;
+        long long s;
+        cin>>n>>s;
+        int arr[n];
+        const int mx = 1e9;
+        for(int i=0;i<n;i++)
+        {
+            cin>>arr[i];
+        }
+        Solution ob;
+        vector<int>res;
+        res = ob.subarraySum(arr, n, s);
+        
+        for(int i = 0;i<res.size();i++)
+            cout<<res[i]<<" ";
+        cout<<endl;
+        
+    }
+	return 0;
+}  // } Driver Code Ends
