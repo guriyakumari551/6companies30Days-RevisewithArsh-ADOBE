@@ -1,0 +1,68 @@
+// { Driver Code Starts
+#include <bits/stdc++.h>
+using namespace std;
+
+
+ // } Driver Code Ends
+//User function Template for C++
+
+class Solution {
+  public:
+  int lcs(vector<int>res,int B[],int M)
+  {
+      int n=res.size();
+      vector<int>lis;
+      for(int i=0;i<n;i++)
+      {
+        auto it=lower_bound(lis.begin(),lis.end(),res[i]);
+        if(it==lis.end())
+        lis.push_back(res[i]);
+        else
+        {
+            *it=res[i];
+        }
+      }
+      return lis.size();
+      
+  }
+    int minInsAndDel(int A[], int B[], int N, int M) {
+        unordered_map<int,int>mp1;
+        for(int i=0;i<M;i++)
+        {
+            mp1[B[i]]++;
+        }
+        vector<int>res;
+        for(int i=0;i<N;i++)
+        {
+            if(mp1.find(A[i])!=mp1.end())
+            {
+                res.push_back(A[i]);
+               
+            }
+        }
+        
+        int ans=lcs(res,B,M);
+        return N+M-2*ans;
+    }
+};
+
+// { Driver Code Starts.
+
+int main() {
+    int t;
+    cin >> t;
+    while (t--) {
+        int N,M;
+        cin>>N>>M;
+        
+        int A[N], B[M];
+        for(int i=0; i<N; i++)
+            cin>>A[i];
+        for(int i=0; i<M; i++)
+            cin>>B[i];
+
+        Solution ob;
+        cout << ob.minInsAndDel(A,B,N,M) << endl;
+    }
+    return 0;
+}  // } Driver Code Ends
