@@ -1,52 +1,45 @@
 // { Driver Code Starts
-#include <iostream>
-#include <map>
-#include <algorithm>
-#include <cstdlib>
-#include<bits/stdc++.h>
-
+// C++ program to remove recurring digits from
+// a given number
+#include <bits/stdc++.h>
 using namespace std;
 
 
  // } Driver Code Ends
+    
+
 class Solution{
-  public:
-  
-    //Function to return the name of candidate that received maximum votes.
-   
-    vector<string> winner(string arr[],int n)
+    //Function to find the leaders in the array.
+    public:
+    vector<int> leaders(int a[], int n)
     {
-        // Your code here
-        // Return the string containing the name and an integer
-        // representing the number of votes the winning candidate got
-        unordered_map<string,int>mp;
-        for(int i=0;i<n;i++)
-        {
-            mp[arr[i]]++;
-        }
-        vector<string>ans;
-        string temp="";
-        int curr_value=INT_MIN;
-        for(auto it:mp)
-        {
-            if(it.second>curr_value)
-            {
-                temp=it.first;
-                curr_value=it.second;
-            }
-            else if(curr_value==it.second)
-            {
-                if(it.first<temp)
-                {
-                    temp=it.first;
-                }
-            }
-        }
-        ans.push_back(temp);
-        string r=to_string(curr_value);
-        ans.push_back(r);
-        return ans;
         
+        vector<int>ans;
+        vector<int>final;
+        if(n==1)
+        {
+        final.push_back(a[0]);
+        return final;
+        }
+        else
+        {
+        priority_queue<int,vector<int>>pq;
+       int curr=a[n-1];
+       ans.push_back(curr);
+        for(int i=n-2;i>=0;i--)
+        {
+            curr=max(curr,a[i]);
+            if(a[i]>=curr)
+            ans.push_back(curr);
+            
+        }
+        reverse(ans.begin(),ans.end());
+       
+        return ans;
+        }
+        
+        
+      
         
     }
 };
@@ -55,25 +48,30 @@ class Solution{
 
 int main()
 {
-    int t;
-    cin>>t;
-    
-    for(int i=0;i<t;i++)
-    {
+   long long t;
+   cin >> t;//testcases
+   while (t--)
+   {
+       long long n;
+       cin >> n;//total size of array
         
+        int a[n];
         
-        int n;
-        cin>>n;
-        
-        string arr[n];
-        
-        for (int i=0;i<n;i++)
-        cin>>arr[i];
+        //inserting elements in the array
+        for(long long i =0;i<n;i++){
+            cin >> a[i];
+        }
         Solution obj;
-        vector<string> result = obj.winner(arr,n);
+        //calling leaders() function
+        vector<int> v = obj.leaders(a, n);
         
-        cout<<result[0] << " " << result[1] << endl;
-    }
-    return 0;
+        //printing elements of the vector
+        for(auto it = v.begin();it!=v.end();it++){
+            cout << *it << " ";
+        }
+        
+        cout << endl;
+
+   }
 }
   // } Driver Code Ends
